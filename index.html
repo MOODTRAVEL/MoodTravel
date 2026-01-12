@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mood Travel | Corporate Getaway</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<!-- AOS Animation -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+/* RESET & BASE */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;line-height:1.6;scroll-behavior:smooth;}
+img{max-width:100%;display:block;}
+a{text-decoration:none;}
+
+/* ADIDAS FONT */
+.adidas{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;text-transform:uppercase;}
+
+/* HEADER */
+header{
+  position:fixed;top:0;left:0;width:100%;height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;
+  background:rgba(255,255,255,0.8);backdrop-filter:blur(15px) saturate(160%);
+  -webkit-backdrop-filter:blur(15px) saturate(160%);
+  border-bottom:1px solid rgba(211,47,47,0.1);z-index:2000;
+}
+.logo img{height:90px;width:auto;margin-top:15px;filter:drop-shadow(0 5px 15px rgba(0,0,0,0.1));transition:transform 0.3s ease;}
+.nav-links{display:flex;gap:25px;align-items:center;height:100%;}
+.nav-links a{position:relative;color:#1a1a1a;font-weight:700;font-size:0.75rem;text-transform:uppercase;padding:10px 0;display:inline-block;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:3px;background:#d32f2f;transition:all 0.4s cubic-bezier(0.68,-0.55,0.265,1.55);transform:translateX(-50%);z-index:2001;}
+.nav-links a:hover::after{width:100%;}
+.nav-links a:hover{color:#d32f2f;}
+@media(max-width:768px){
+  header{height:60px;padding:0 5%;}
+  .logo img{height:60px;margin-top:15px;}
+  .nav-links{gap:15px;}
+  .nav-links a{font-size:0.7rem;padding:5px 0;}
+}
+
+/* BODY PADDING FOR HEADER */
+body{padding-top:80px;}
+@media(max-width:768px){body{padding-top:60px;}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;
+  background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("T1.jpg");
+  background-size:cover;background-position:center;}
+.hero h1{font-size:4.5rem;color:#fff;margin-bottom:20px;line-height:1.1;}
+.hero h1.adidas{font-size:4.5rem;}
+.hero p{font-size:1.2rem;color:#fff;margin-bottom:30px;}
+.btn{padding:15px 35px;border-radius:30px;font-weight:600;background:white;color:black;display:inline-block;transition:.3s;line-height:1;margin-top:20px;}
+.btn:hover{opacity:.85;}
+
+/* SECTION TITLES */
+section h2{font-size:4.5rem;margin-bottom:50px;text-align:center;line-height:1.1;}
+section h2.adidas{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;text-transform:uppercase;color:#d32f2f;}
+
+/* WHY US / FLIP CARDS */
+.why{background:#fff;padding:100px 8%;text-align:center;}
+.why-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin-top:50px;}
+.flip-card{background:transparent;perspective:1000px;min-height:320px;height:auto;}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d;min-height:320px;}
+.flip-card:hover .flip-card-inner{transform:rotateY(180deg);}
+.flip-card-front,.flip-card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px;}
+.flip-card-front{background:#d32f2f;color:#fff;box-shadow:0 10px 20px rgba(211,47,47,0.2);}
+.flip-card-front i{font-size:3.5rem;margin-bottom:20px;display:block;transition:0.3s;}
+.flip-card:hover .flip-card-front i{transform:scale(1.1);color:rgba(255,255,255,0.8);}
+.flip-card-back{background:#f9f9f9;color:#1a1a1a;transform:rotateY(180deg);border:2px solid #d32f2f;}
+.flip-card-back h3{margin-bottom:15px;color:#d32f2f;}
+.flip-card-back ul{list-style:none;padding-left:0;}
+.flip-card-back ul li{position:relative;padding-left:20px;margin-bottom:10px;}
+.flip-card-back ul li::before{content:"✔";position:absolute;left:0;color:#d32f2f;font-weight:bold;}
+
+/* PACKAGES GRID */
+#packages{background:#fdfdfd;padding:100px 8%;}
+.packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-top:50px;}
+.package{background:#fff;border-radius:20px;overflow:hidden;transition:all 0.5s;color:#1a1a1a;border:1px solid #eeeeee;position:relative;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
+.package:hover{transform:translateY(-15px) scale(1.02);box-shadow:0 20px 40px rgba(211,47,47,0.15);border:1px solid #d32f2f;}
+.package img{width:100%;height:300px;object-fit:cover;transition:transform 0.7s ease;}
+.package:hover img{transform:scale(1.1);filter:brightness(1.05);}
+.package-content{padding:25px;transition:transform 0.5s ease;}
+.package-content h3{color:#d32f2f;margin-bottom:10px;}
+.package-content p{color:#666;font-size:0.95rem;}
+.package:hover .package-content{transform:translateY(-5px);}
+
+/* TESTIMONIALS SLIDER */
+.testimonials {
+  background: #f9f9f9;
+  padding: 80px 5%; /* Kurangkan sikit padding supaya nampak kemas */
+  overflow: hidden;
+}
+
+.testimonials h2 {
+  text-align: center;
+  color: #d32f2f;
+  font-size: 2rem; /* Saiz lebih sesuai */
+  font-weight: 700;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.test-slider {
+  display: flex;
+  margin-top: 40px;
+}
+
+.test-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.test-track:hover {
+  animation-play-state: paused;
+}
+
+.test-box {
+  width: 300px; /* Sedikit lebih kecil supaya muat mobile & desktop */
+  margin-right: 25px;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid #eeeeee;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+}
+
+.test-box:hover {
+  border: 1px solid #d32f2f;
+  transform: translateY(-5px);
+}
+
+.test-box img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.test-box:hover img {
+  transform: scale(1.05);
+}
+
+.test-box div {
+  padding: 20px;
+  font-size: 0.9rem; /* Sedikit lebih kecil supaya sesuai semua box */
+  line-height: 1.5;
+  color: #333333;
+  position: relative;
+}
+
+.test-box div::before {
+  content: "“";
+  color: #d32f2f;
+  font-size: 2.5rem; /* Kecilkan sedikit quotation mark */
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  opacity: 0.1;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+  .test-box {
+    width: 250px;
+    margin-right: 15px;
+  }
+
+  .test-box div {
+    font-size: 0.85rem;
+    padding: 15px;
+  }
+
+  .testimonials h2 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+}
+
+
+/* TRUST STATS */
+.trust{position:relative;background:linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),url("Kapal.jpg");background-size:cover;background-position:center;background-attachment:fixed;padding:80px 8%;text-align:center;}
+.trust h2{color:#fff;font-size:1.5rem;margin-bottom:40px;text-transform:uppercase;letter-spacing:2px;}
+.trust-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:15px;max-width:1000px;margin:0 auto;}
+.trust-grid div{background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);flex:1;min-width:180px;max-width:240px;padding:25px 15px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);transition:all 0.3s ease;}
+.trust-grid div:hover{transform:translateY(-8px);background:rgba(211,47,47,0.25);border:1px solid #d32f2f;}
+.trust-grid h2{font-size:2.2rem;margin-bottom:2px;color:#d32f2f;font-weight:800;}
+.trust-grid p{color:rgba(255,255,255,0.9);font-weight:600;text-transform:uppercase;letter-spacing:1px;font-size:0.7rem;}
+@media(max-width:768px){.trust-grid div{min-width:130px;padding:20px 10px;}.trust-grid h2{font-size:1.6rem;}}
+
+/* CLIENT BOARD */
+.client-board{text-align:center;padding:100px 5%;background:#fdfdfd;}
+.client-board h3{margin-bottom:40px;color:#d32f2f;font-size:2.5rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;}
+.client-board .image-container{background:white;padding:40px;border-radius:30px;box-shadow:0 20px 50px rgba(0,0,0,0.08);max-width:850px;margin:0 auto;border:1px solid #eeeeee;transition:all 0.4s ease;}
+.client-board .image-container:hover{transform:translateY(-10px);border:1px solid #d32f2f;box-shadow:0 25px 60px rgba(211,47,47,0.1);}
+.client-board img{width:100%;height:auto;display:block;opacity:0.85;filter:grayscale(20%);transition:0.3s;}
+.client-board .image-container:hover img{opacity:1;filter:grayscale(0%);}
+.client-board p{margin-top:25px;color:#666;font-size:0.9rem;}
+@media(max-width:768px){.client-board h3{font-size:1.8rem;}.client-board .image-container{max-width:95%;padding:20px;}}
+
+/* CTA */
+.final-call{background:#fff;padding:100px 8%;display:flex;justify-content:center;}
+.cta-card{background:linear-gradient(145deg,#d32f2f,#b71c1c);padding:80px 40px;border-radius:40px;text-align:center;width:100%;max-width:1000px;color:white;box-shadow:0 30px 60px rgba(211,47,47,0.3);}
+.cta-card h2{font-size:3rem;margin-bottom:20px;}
+.cta-card h2 span{color:rgba(255,255,255,0.7);}
+.btn-whatsapp{background:#25D366;color:white;padding:20px 45px;border-radius:50px;font-size:1.3rem;font-weight:700;display:inline-flex;align-items:center;gap:15px;transition:all 0.4s ease;box-shadow:0 10px 20px rgba(0,0,0,0.2);margin-top:30px;animation:pulse 2s infinite;}
+.btn-whatsapp:hover{background:#128C7E;transform:scale(1.1);}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+
+/* FOOTER */
+.modern-footer{background:#f9f9f9;padding:80px 8% 40px;border-top:1px solid #eeeeee;}
+.footer-content{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+.footer-brand img{height:60px;margin-bottom:20px;}
+.footer-brand p{color:#666;}
+.footer-links h4,.footer-social h4{margin-bottom:25px;font-size:1.1rem;color:#d32f2f;}
+.footer-links a{display:block;color:#444;margin-bottom:12px;transition:0.3s;}
+.footer-links a:hover{color:#d32f2f;transform:translateX(5px);}
+.footer-bottom{text-align:center;padding-top:40px;border-top:1px solid #eeeeee;color:#999;font-size:0.8rem;}
+@media(max-width:768px){.footer-content{grid-template-columns:1fr;text-align:center;}.cta-card h2{font-size:2rem;}}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo"><img src="CLNB.png" alt="Mood Travel Logo"></div>
+  <nav class="nav-links">
+    <a href="#why"><span></span>Why Us</a>
+    <a href="#packages"><span></span>Packages</a>
+    <a href="#testimonials"><span></span>Reviews</a>
+    <a href="#contact"><span></span>Contact Us</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content" data-aos="fade-up">
+    <h1 class="adidas">Corporate Getaways<br>Made Effortless</h1>
+    <p>Premium corporate retreats, incentive trips & staff vacations.</p>
+    <a href="#packages" class="btn">View Packages</a>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <h2 class="adidas" data-aos="fade-up">WHY MOOD TRAVEL?</h2>
+  <div class="why-list">
+    <!-- FLIP CARD 1 -->
+    <div class="flip-card" data-aos="fade-up">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <i class="fas fa-shield-alt"></i>
+          <h3>TRAVEL WITH PEACE OF MIND</h3>
+          <p>Hover to see why</p>
+        </div>
+        <div class="flip-card-back">
+          <h3>Why Us?</h3>
+          <ul>
+            <li>No hidden costs</li>
+            <li>Clear planning & follow-up</li>
+            <li>Family & senior-friendly</li>
+            <li>Pre-trip to post-trip care</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- FLIP CARD 2 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <i class="fa-solid fa-sliders"></i>
+          <h3>FLEXIBLE & PERSONALIZED</h3>
+          <p>Hover to see why</p>
+        </div>
+        <div class="flip-card-back">
+          <h3>Why Us?</h3>
+          <ul>
+            <li>Customizable itineraries</li>
+            <li>Flexible pacing (no rushing)</li>
+            <li>Corporate & private trip focus</li>
+            <li>Designed around client needs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- FLIP CARD 3 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <i class="fa-solid fa-handshake-angle"></i>
+          <h3>MEANINGFUL EXPERIENCE & HUMAN TOUCH</h3>
+          <p>Hover to see why</p>
+        </div>
+        <div class="flip-card-back">
+          <h3>Why Us?</h3>
+          <ul>
+            <li>Experience sharing & excitement</li>
+            <li>Strong, clear USP</li>
+            <li>Story-driven, people-first</li>
+            <li>Long-term relationships</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="packages">
+  <h2 class="adidas" data-aos="fade-up">CORPORATE TRAVEL PACKAGES</h2>
+  <div class="packages-grid">
+    <a href="https://wa.me/601158521320" class="package" data-aos="fade-up">
+      <img src="Jar.jpg">
+      <div class="package-content"><h3>Jakarta-Bandung</h3><p>Luxury retreat for high-performing teams.</p></div>
+    </a>
+    <a href="https://wa.me/601158521320" class="package" data-aos="fade-up" data-aos-delay="100">
+      <img src="Danang.jpg">
+      <div class="package-content"><h3>Danang</h3><p>Mix of adventure & cultural bonding for staff.</p></div>
+    </a>
+    <a href="https://wa.me/601158521320" class="package" data-aos="fade-up" data-aos-delay="200">
+      <img src="Phu.jpg">
+      <div class="package-content"><h3>Phu Quoc</h3><p>Beach relaxation & team-building experiences.</p></div>
+    </a>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <h2 data-aos="fade-up">CUSTOMER REVIEWS</h2>
+  <div class="test-slider">
+    <div class="test-track">
+      <!-- AUTO-GENERATED 10 TESTIMONIAL BOXES -->
+      <div class="test-box" data-aos="fade-up"><img src="T1.jpg" alt=""><div>“Ini corporate trip paling teratur yang pernah kami join. Zero stress, full enjoy.”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="50"><img src="T2.jpg" alt=""><div>“Jadual trip sangat jaga waktu solat, jadi kami tak risau nak beribadah.”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="100"><img src="T3.jpg" alt=""><div>“Trip dengan MoodTravel sangat smooth, semua itinerary tepat masa dan team sangat profesional.”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="150"><img src="T4.jpg" alt=""><div>“Semua makanan yang disediakan halal dan diyakini,ami juga dibawa ke tempat makan viral yang halal.”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="200"><img src="T5.jpg" alt=""><div>“Trip ini bukan sekadar bercuti, tapi betul-betul bagi pengalaman premium untuk company kami.”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="250"><img src="T6.jpg" alt=""><div>“Kami rasa macam VIP sepanjang trip – hotel, transport dan aktiviti semua top class.”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="300"><img src="T7.jpg" alt=""><div>“Hotel, transport, aktiviti semua jadi.”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="350"><img src="T8.jpg" alt=""><div>“Trip ni memang smooth dari mula sampai habis.”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="400"><img src="T9.jpg" alt=""><div>“Travel jadi lebih selesa tanpa perlu risau pasal halal dan solat..”</div></div>
+      <div class="test-box" data-aos="fade-up" data-aos-delay="450"><img src="T10.jpg" alt=""><div>“Semuanya disusun dengan baik dan mudah.”</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <h2>OUR TRUSTED STATS</h2>
+  <div class="trust-grid">
+    <div>
+      <h2>15K+</h2>
+      <p>Happy Travelers</p>
+    </div>
+    <div>
+      <h2>250+</h2>
+      <p>Corporate Clients</p>
+    </div>
+    <div>
+      <h2>10+</h2>
+      <p>Years Experience</p>
+    </div>
+  </div>
+</section>
+
+<section class="client-board">
+  <h3 data-aos="fade-up">CORPORATE CLIENTS</h3>
+  <div class="image-container" data-aos="fade-up">
+    <img src="CWW.png" alt="Client Logos">
+    <p>Our clients include top companies in Malaysia & Asia.</p>
+  </div>
+</section>
+
+<section class="final-call" id="contact">
+  <div class="cta-card" data-aos="fade-up">
+    <h2>Ready to <span>plan your corporate getaway</span>?</h2>
+    <a href="https://wa.me/601158521320" class="btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+  </div>
+</section>
+
+<footer class="modern-footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <img src="CLNB.png" alt="Mood Travel Logo">
+      <p>Your trusted partner for corporate adventures.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Links</h4>
+      <a href="#why">Why Us</a>
+      <a href="#packages">Packages</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+      <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Mood Travel. All rights reserved.</div>
+</footer>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({duration:1200, once:true});
+</script>
+
+</body>
+</html>
